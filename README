@@ -1,0 +1,10 @@
+Implementare Loader de Executabile:
+
+Am cautat segmentul in care se afla eroarea gasita la "si_addr". Daca nu se afla in niciun segment,
+se iese din program. Daca aceasta a fost gasita, se verifica daca pagina este deja mapata si se
+returneaza eroare in caz afirmativ (functia "check_perms"). Altfel, aflu adresa de memorie unde
+trebuie mapata pagina, mai exact inceputul paginii unde s-a gasit eroarea. Folosind functia "mapping",
+mapez pagina si copiez continutul din executabil (prin intermediul unui buffer), asta dupa ce am setat
+offsetul pentru citirea din descriptorul executabilului. Apoi protejez regiunea de memorie cu
+permisiunile segmentului. In cazul in care cel putin o portiune din pagina mapata depaseste
+dimensiunea executabilului (dar ramane in dimensiunea de memorie), voi seta acea portiune cu 0.
